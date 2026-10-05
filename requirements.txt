@@ -1,0 +1,6 @@
+# Python 3.13. torch 2.14.1 from PyPI is the CUDA 13.0 build on Linux.
+numpy==2.5.3
+torch==2.14.1
+scikit-learn==1.9.1
+joblib==1.6.0
+matplotlib==3.11.2
