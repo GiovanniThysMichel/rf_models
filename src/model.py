@@ -9,7 +9,7 @@ class ModulationCNN(nn.Module):
     Conv1d(in_channels -> 8, kernel 7, stride 2) -> ReLU -> global average pooling over time
     -> Linear(8 -> num_classes). 
 
-    Input: (batch, in_channels, 128) 
+    Input: (batch, in_channels, L), L = 128 for experiments A and C, 127 for B
     Output: (batch, num_classes) logits
     """
 
@@ -39,7 +39,7 @@ def make_linear_svm(C=1.0):
     """
     Linear SVM for radio modulation classification, on the same input channels as
     ModulationCNN, flattened.
-    Input: (n_samples, in_channels * 128) 
+    Input: (n_samples, in_channels * L), i.e. 256 (A), 381 (B) or 512 (C) features
     Output: (n_samples,) class indices
     """
     return LinearSVC(C=C)
