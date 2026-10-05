@@ -20,7 +20,7 @@ Classify 11 modulation types at SNR = 0 dB.
 
 
 
-# 4. CNN diagram 
+## 4. CNN diagram 
 - Batch 64, lr 3e-3, 150 epochs
 ```
 input   [N, C, L]    C = 2 / 3 / 4, L = 128 / 127 / 128 for A / B / C
@@ -32,6 +32,9 @@ input   [N, C, L]    C = 2 / 3 / 4, L = 128 / 127 / 128 for A / B / C
   ↓  Linear(8 → 11)
 output  [N, 11]      one logit per class
 ```
+- Model note: For additional experiments B and C, only in_channels changes from 2 to 3 or 4, respectively; the CNN topology is otherwise unchanged.
+- Preprocessing note: Each observation is independently RMS-normalized to reduce sensitivity to absolute received-signal amplitude and emphasize modulation structure.
+
 
 ## 5. Cross-validation methodology
 - Stratified 5-fold CV, shuffled with seed 42: each fold trains on 8,800 examples (800 per class) and holds out 2,200 (200 per class).
@@ -55,4 +58,8 @@ output  [N, 11]      one logit per class
 
 Results are written to `results/` (`cv_summary.md`, `svm_c_sweep.md`, `figures/`).
 
-## 7. Recommendations
+## 7. Results
+### Required Results (RAW IQ + best-C Linear)
+### Results Experiment B and C
+
+## 8. Recommendations

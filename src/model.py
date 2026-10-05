@@ -41,5 +41,11 @@ def make_linear_svm(C=1.0):
     ModulationCNN, flattened.
     Input: (n_samples, in_channels * L), i.e. 256 (A), 381 (B) or 512 (C) features
     Output: (n_samples,) class indices
+
+    max_iter is raised from scikit-learn's default of 1,000 so that large C (10, 100), which
+    regularises weakly and needs many more solver iterations, still converges.
     """
-    return LinearSVC(C=C)
+    return LinearSVC(
+        C=C,
+        max_iter=20_000
+    )

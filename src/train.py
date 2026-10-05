@@ -293,15 +293,16 @@ def run_experiments(data_path=DATA_PATH, out_dir=PROJECT_ROOT / 'results', fig_d
     _write_metrics(metrics, out_dir, n_splits, snr)
 
     if c_sweep:
-        run_c_sweep(data_path, out_dir=out_dir, c_values=c_values, n_splits=n_splits, snr=snr, seed=seed)
+        run_c_sweep(data_path, out_dir=out_dir, c_values=c_values, n_splits=n_splits, snr=snr,
+                    inputs=inputs, seed=seed)
     return summary
 
 
 def run_c_sweep(data_path=DATA_PATH, out_dir=PROJECT_ROOT / 'results', c_values=C_VALUES,
-                n_splits=5, n_inner_splits=5, snr=0, seed=42):
+                n_splits=5, n_inner_splits=5, snr=0, inputs=None, seed=42):
     """
-    How the linear SVM depends on C, on every input set in INPUTS (experiments A, B, C), with
-    the same inputs and outer folds as run_experiments():
+    How the linear SVM depends on C, on each input set in inputs (keys of INPUTS; experiments
+    A, B and C by default), with the same inputs and outer folds as run_experiments():
 
       1. C sweep: cross_validate_svm() for every C in c_values. Every C is scored on the same
          held-out folds, so this shows how sensitive the accuracy is to C. Its best row is not
@@ -312,10 +313,10 @@ def run_c_sweep(data_path=DATA_PATH, out_dir=PROJECT_ROOT / 'results', c_values=
     Both tables are written to out_dir/svm_c_sweep.md, with the numbers in
     out_dir/svm_c_sweep.csv and out_dir/svm_nested_cv.csv. Returns (sweep_rows, nested_rows).
     """
-    inputs = list(INPUTS.values())
+    input_sets = [INPUTS[key] for key in (inputs or INPUTS)]
     sweep_rows, nested_rows = [], []
 
-    for input_label, channels in inputs:
+    for input_label, channels in input_sets:
         for C in c_values:
             print(f"\n########## Linear SVM, C={C:g} on {input_label} ##########")
             with warnings.catch_warnings(record=True) as caught:
@@ -328,7 +329,7 @@ def run_c_sweep(data_path=DATA_PATH, out_dir=PROJECT_ROOT / 'results', c_values=
                                'mean': round(acc.mean(), 4), 'sd': round(acc.std(), 4),
                                'unconverged_folds': sum(issubclass(w.category, ConvergenceWarning) for w in caught)})
 
-    for input_label, channels in inputs:
+    for input_label, channels in input_sets:
         print(f"\n########## Linear SVM, nested CV over C on {input_label} ##########")
         results = cross_validate_svm_nested(data_path, c_values=c_values, n_splits=n_splits,
                                             n_inner_splits=n_inner_splits, snr=snr, channels=channels, seed=seed)
