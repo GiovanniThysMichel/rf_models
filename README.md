@@ -59,7 +59,7 @@ output  [N, 11]      one logit per class
 Results are written to `results/` (`cv_summary.md`, `svm_c_sweep.md`, `figures/`).
 
 ## 7. Results
-### Required Results (RAW IQ + best-C Linear)
+### Required Results (RAW IQ + best-C Linear + mean accuracy)
 ### Results Experiment B and C
 
-## 8. Recommendations
+## 8. Recommendations, including tradeoffs between models
