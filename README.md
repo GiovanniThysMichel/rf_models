@@ -12,7 +12,6 @@ Classify 11 modulation types at SNR = 0 dB.
 - **Load** the pickle, a dict keyed by (modulation, SNR); each value has shape (1000, 2, 128).
 - **Filter** to 0 dB SNR, dropping the other 19 levels.
 - **Normalise power:** each example is divided by the RMS of its 256 I/Q values, so I and Q each have unit mean square. This removes absolute received amplitude (gain, path loss), which carries no information about the modulation, and scales I and Q jointly so phase and constellation shape are preserved.
-
 - **Build the input**, one per experiment, from x[n] = I[n] + jQ[n]:
   - **A: raw I/Q** (2 × 128)
   - **B: amplitude + instantaneous frequency** (3 × 127): [A, cos Δφ, sin Δφ], with A[n] = |x[n]| and Δφ[n] = angle(x[n+1]·x*[n]). Encoding Δφ as cos and sin removes the jump between +π and −π.
@@ -57,9 +56,11 @@ output  [N, 11]      one logit per class
    python -m src.train --c-sweep  # same, plus the SVM sweep over C ∈ {0.01, 0.1, 1, 10, 100} with nested CV
    ```
 
-Results are written to `results/` (`cv_summary.md`, `svm_c_sweep.md`, `figures/`).
+Results are written to `results/` (`cv_summary.md`, `metrics.md`, `svm_c_sweep.md`, `figures/`).
 
 ## 7. Results
+Precision, recall and F1 (macro and per class) are in [metrics.md](results/metrics.md); confusion matrices and CNN training curves are in [figures/](results/figures/).
+
 ### Required Results (RAW IQ + best-C Linear + mean accuracy)
 | Model | Input | Parameters | Fold 1 | Fold 2 | Fold 3 | Fold 4 | Fold 5 | Mean ± SD |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
