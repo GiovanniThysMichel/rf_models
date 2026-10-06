@@ -2,6 +2,10 @@ import torch
 import torch.nn as nn
 from sklearn.svm import LinearSVC
 
+# Linear SVM regularisation: the C that nested cross-validation chose on every outer fold for
+# experiments B and C (on A every C scores the same). See train.run_c_sweep.
+SVM_C = 0.01
+
 class ModulationCNN(nn.Module):
     """
     Minimal 1D CNN for radio modulation classification from IQ samples or features derived from them.
@@ -35,7 +39,7 @@ class ModulationCNN(nn.Module):
         return self.fc(x)
 
 
-def make_linear_svm(C=1.0):
+def make_linear_svm(C=SVM_C):
     """
     Linear SVM for radio modulation classification, on the same input channels as
     ModulationCNN, flattened.

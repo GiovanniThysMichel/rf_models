@@ -11,7 +11,8 @@ Classify 11 modulation types at SNR = 0 dB.
 ## 3. Data preparation
 - **Load** the pickle, a dict keyed by (modulation, SNR); each value has shape (1000, 2, 128).
 - **Filter** to 0 dB SNR, dropping the other 19 levels.
-- **Normalise power:** divide each example by its RMS over I and Q, giving unit average power.
+- **Normalise power:** each example is divided by the RMS of its 256 I/Q values, so I and Q each have unit mean square. This removes absolute received amplitude (gain, path loss), which carries no information about the modulation, and scales I and Q jointly so phase and constellation shape are preserved.
+
 - **Build the input**, one per experiment, from x[n] = I[n] + jQ[n]:
   - **A: raw I/Q** (2 × 128)
   - **B: amplitude + instantaneous frequency** (3 × 127): [A, cos Δφ, sin Δφ], with A[n] = |x[n]| and Δφ[n] = angle(x[n+1]·x*[n]). Encoding Δφ as cos and sin removes the jump between +π and −π.
@@ -52,7 +53,7 @@ output  [N, 11]      one logit per class
 2. Download RadioML 2016.10a from [zenodo.org/records/18397070](https://zenodo.org/records/18397070) and extract it so the pickle is at `data/18397070/RML2016.10a/RML2016.10a_dict_optimized.pkl`.
 3. Run from the project root:
    ```bash
-   python -m src.train            # CNN and SVM (C = 1) on inputs A, B and C
+   python -m src.train            # CNN and SVM (C = 0.01) on inputs A, B and C
    python -m src.train --c-sweep  # same, plus the SVM sweep over C ∈ {0.01, 0.1, 1, 10, 100} with nested CV
    ```
 
@@ -60,6 +61,24 @@ Results are written to `results/` (`cv_summary.md`, `svm_c_sweep.md`, `figures/`
 
 ## 7. Results
 ### Required Results (RAW IQ + best-C Linear + mean accuracy)
-### Results Experiment B and C
+| Model | Input | Parameters | Fold 1 | Fold 2 | Fold 3 | Fold 4 | Fold 5 | Mean ± SD |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| Linear SVM, C=0.01 | A: raw I/Q | 2,827 | 17.4% | 18.3% | 18.0% | 18.4% | 17.4% | 17.9% ± 0.4% |
+| 1D CNN | A: raw I/Q | 219 | 66.6% | 66.5% | 64.3% | 64.9% | 66.2% | **65.7% ± 0.9%** |
+
+- Summary: 1D CNN on RAW IQ input performs better than SVM across folds.
+- Best C: on raw I/Q every C in {0.01, 0.1, 1, 10, 100} gives 17.9% ([svm_c_sweep.md](results/svm_c_sweep.md)), and nested CV, which picks C inside each training fold, also gives 17.9% ± 0.4%. C = 0.01 is used for every input because it is best on B and C.
+
+### Results: experiments B and C
+| Model | Input | Parameters | Fold 1 | Fold 2 | Fold 3 | Fold 4 | Fold 5 | Mean ± SD |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| Linear SVM, C=0.01 | B: amplitude + instantaneous frequency | 4,202 | 39.3% | 40.2% | 38.1% | 38.8% | 40.1% | 39.3% ± 0.8% |
+| 1D CNN | B: amplitude + instantaneous frequency | 275 | 77.7% | 76.5% | 78.0% | 74.0% | 75.9% | 76.4% ± 1.4% |
+| Linear SVM, C=0.01 | C: power-law FFT | 5,643 | 81.6% | 80.0% | 82.9% | 80.3% | 82.1% | **81.4% ± 1.1%** |
+| 1D CNN | C: power-law FFT | 331 | 78.7% | 77.4% | 79.2% | 78.3% | 78.5% | 78.4% ± 0.6% |
+
+- **B, amplitude + instantaneous frequency:** both models improve on raw I/Q (CNN 65.7% → 76.4%, SVM 17.9% → 39.3%), and the CNN beats the SVM on every fold.
+- **C, power-law FFT:** both models improve again (CNN 76.4% → 78.4%, SVM 39.3% → 81.4%), and the SVM now beats the CNN on every fold. The SVM on C is the best result overall.
+
 
 ## 8. Recommendations, including tradeoffs between models

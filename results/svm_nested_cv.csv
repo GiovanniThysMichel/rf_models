@@ -1,0 +1,4 @@
+input,fold_1,fold_2,fold_3,fold_4,fold_5,C_fold_1,C_fold_2,C_fold_3,C_fold_4,C_fold_5,mean,sd,unconverged_fits
+A: raw I/Q,0.1741,0.1827,0.1786,0.1855,0.1745,0.01,0.01,0.1,100,0.1,0.1791,0.0045,0
+"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",0.3932,0.4018,0.3814,0.3882,0.4009,0.01,0.01,0.01,0.01,0.01,0.3931,0.0077,0
+"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",0.8159,0.8,0.8291,0.8032,0.8209,0.01,0.01,0.01,0.01,0.01,0.8138,0.0109,0

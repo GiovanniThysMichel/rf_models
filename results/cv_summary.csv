@@ -1,0 +1,7 @@
+model,input,parameters,fold_1,fold_2,fold_3,fold_4,fold_5,mean,sd
+"Linear SVM, C=0.01",A: raw I/Q,2827,0.1741,0.1827,0.18,0.1845,0.1741,0.1791,0.0043
+1D CNN,A: raw I/Q,219,0.6664,0.665,0.6427,0.6486,0.6618,0.6569,0.0095
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",4202,0.3932,0.4018,0.3814,0.3882,0.4009,0.3931,0.0077
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",275,0.7768,0.7655,0.7795,0.7395,0.7586,0.764,0.0144
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",5643,0.8159,0.8,0.8291,0.8032,0.8209,0.8138,0.0109
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",331,0.7873,0.7741,0.7923,0.7832,0.7845,0.7843,0.006

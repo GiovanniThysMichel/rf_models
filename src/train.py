@@ -20,7 +20,7 @@ from .dataset import (MODULATIONS, IQ_CHANNELS, AP_CHANNELS, POWER_CHANNELS, Rad
                       get_kfold_dataloaders, get_kfold_indices, standardize_channels)
 from .evaluate import (evaluate, predict, classification_metrics, macro_metrics_per_fold,
                        plot_confusion_matrix, plot_cv_curves)
-from .model import ModulationCNN, make_linear_svm
+from .model import SVM_C, ModulationCNN, make_linear_svm
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = PROJECT_ROOT / 'data/18397070/RML2016.10a/RML2016.10a_dict_optimized.pkl'
@@ -224,7 +224,7 @@ def _fit_and_score(C, X, y, train_idx, test_idx):
 
 def run_experiments(data_path=DATA_PATH, out_dir=PROJECT_ROOT / 'results', fig_dir=None,
                     checkpoint_dir=PROJECT_ROOT / 'checkpoints', n_splits=5, snr=0, epochs=EPOCHS,
-                    lr=LR, batch_size=BATCH_SIZE, C=1.0, c_sweep=False, c_values=C_VALUES,
+                    lr=LR, batch_size=BATCH_SIZE, C=SVM_C, c_sweep=False, c_values=C_VALUES,
                     inputs=None, device='cuda', seed=42):
     """
     The linear SVM and the CNN on each input set in inputs (keys of INPUTS; all of them by
@@ -355,7 +355,7 @@ def run_c_sweep(data_path=DATA_PATH, out_dir=PROJECT_ROOT / 'results', c_values=
 def _c_sweep_table(sweep_rows, nested_rows, c_values, n_splits, n_inner_splits, snr):
     c_list = ', '.join(f'{C:g}' for C in c_values)
     lines = [f'# Linear SVM: choice of C, {n_splits}-fold cross-validation at SNR {snr} dB', '',
-             'Same inputs and outer folds as the main results, which use C = 1, fixed in advance.', '',
+             f'Same inputs and outer folds as the main results, which use C = {SVM_C:g} (model.SVM_C).', '',
              '## C sweep (sensitivity, not tuning)', '',
              'Mean held-out accuracy and SD for each C. Every C is scored on the same folds, so this shows how '
              'much the accuracy depends on C. The best row is not an unbiased estimate of a tuned SVM, '

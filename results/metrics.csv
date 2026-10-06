@@ -1,0 +1,73 @@
+model,input,class,precision,recall,f1,precision_sd,recall_sd,f1_sd,support
+"Linear SVM, C=0.01",A: raw I/Q,macro,0.1652,0.1791,0.1641,0.0025,0.0043,0.0036,
+"Linear SVM, C=0.01",A: raw I/Q,8PSK,0.0934,0.082,0.0873,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,AM-DSB,0.3541,0.655,0.4596,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,AM-SSB,0.1684,0.261,0.2047,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,BPSK,0.1094,0.123,0.1158,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,CPFSK,0.091,0.079,0.0846,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,GFSK,0.1167,0.1,0.1077,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,PAM4,0.1509,0.105,0.1238,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,QAM16,0.1991,0.133,0.1595,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,QAM64,0.2163,0.109,0.1449,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,QPSK,0.1086,0.1,0.1041,,,,1000
+"Linear SVM, C=0.01",A: raw I/Q,WBFM,0.2057,0.223,0.214,,,,1000
+1D CNN,A: raw I/Q,macro,0.6444,0.6569,0.645,0.0077,0.0095,0.0093,
+1D CNN,A: raw I/Q,8PSK,0.3723,0.226,0.2813,,,,1000
+1D CNN,A: raw I/Q,AM-DSB,0.5004,0.57,0.533,,,,1000
+1D CNN,A: raw I/Q,AM-SSB,0.9337,1.0,0.9657,,,,1000
+1D CNN,A: raw I/Q,BPSK,0.5591,0.653,0.6024,,,,1000
+1D CNN,A: raw I/Q,CPFSK,0.5923,0.738,0.6572,,,,1000
+1D CNN,A: raw I/Q,GFSK,0.6877,0.784,0.7327,,,,1000
+1D CNN,A: raw I/Q,PAM4,0.8591,0.738,0.794,,,,1000
+1D CNN,A: raw I/Q,QAM16,0.7793,0.844,0.8104,,,,1000
+1D CNN,A: raw I/Q,QAM64,0.9395,0.978,0.9584,,,,1000
+1D CNN,A: raw I/Q,QPSK,0.4064,0.358,0.3806,,,,1000
+1D CNN,A: raw I/Q,WBFM,0.4405,0.337,0.3819,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",macro,0.3699,0.3931,0.3728,0.0083,0.0077,0.0074,
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",8PSK,0.2687,0.162,0.2021,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",AM-DSB,0.2419,0.308,0.271,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",AM-SSB,0.8286,0.996,0.9046,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",BPSK,0.4003,0.267,0.3203,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",CPFSK,0.1651,0.138,0.1503,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",GFSK,0.1837,0.171,0.1771,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",PAM4,0.6801,0.908,0.7777,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",QAM16,0.4037,0.323,0.3589,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",QAM64,0.4505,0.615,0.5201,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",QPSK,0.2251,0.131,0.1656,,,,1000
+"Linear SVM, C=0.01","B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",WBFM,0.2169,0.305,0.2535,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",macro,0.7567,0.764,0.7585,0.0144,0.0144,0.0141,
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",8PSK,0.5,0.447,0.472,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",AM-DSB,0.5319,0.633,0.5781,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",AM-SSB,0.9375,0.99,0.963,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",BPSK,0.8262,0.889,0.8565,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",CPFSK,0.8762,0.913,0.8942,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",GFSK,0.7532,0.812,0.7815,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",PAM4,0.977,0.979,0.978,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",QAM16,0.9709,0.933,0.9516,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",QAM64,0.9518,0.967,0.9593,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",QPSK,0.5153,0.473,0.4932,,,,1000
+1D CNN,"B: amplitude + instantaneous frequency [A, cos Δφ, sin Δφ]",WBFM,0.4798,0.368,0.4165,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",macro,0.8097,0.8138,0.8104,0.0113,0.0109,0.011,
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",8PSK,0.7287,0.642,0.6826,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",AM-DSB,0.6043,0.652,0.6272,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",AM-SSB,0.9354,0.985,0.9596,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",BPSK,0.9403,0.96,0.95,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",CPFSK,0.9494,0.975,0.962,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",GFSK,0.8332,0.894,0.8625,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",PAM4,0.939,0.969,0.9537,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",QAM16,0.8678,0.768,0.8149,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",QAM64,0.8765,0.93,0.9025,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",QPSK,0.7045,0.727,0.7156,,,,1000
+"Linear SVM, C=0.01","C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",WBFM,0.5257,0.45,0.4849,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",macro,0.7808,0.7843,0.7789,0.0074,0.006,0.0061,
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",8PSK,0.5175,0.488,0.5023,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",AM-DSB,0.6214,0.801,0.6999,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",AM-SSB,0.9282,0.995,0.9604,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",BPSK,0.914,0.935,0.9244,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",CPFSK,0.7285,0.762,0.7449,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",GFSK,0.8263,0.875,0.8499,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",PAM4,0.9799,0.976,0.978,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",QAM16,0.9457,0.941,0.9434,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",QAM64,0.9631,0.939,0.9509,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",QPSK,0.5287,0.488,0.5075,,,,1000
+1D CNN,"C: power-law FFT log|FFT(x^k)|, k = 1, 2, 4, 8",WBFM,0.6289,0.427,0.5086,,,,1000
