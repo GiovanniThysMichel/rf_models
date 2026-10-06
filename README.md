@@ -11,7 +11,7 @@ Classify 11 modulation types at SNR = 0 dB.
 ## 3. Data preparation
 - **Load** the pickle, a dict keyed by (modulation, SNR); each value has shape (1000, 2, 128).
 - **Filter** to 0 dB SNR, dropping the other 19 levels.
-- **Normalise power:** each example is divided by the RMS of its 256 I/Q values, so I and Q each have unit mean square. This removes absolute received amplitude (gain, path loss), which carries no information about the modulation, and scales I and Q jointly so phase and constellation shape are preserved.
+- **Normalization** RadioML 2016.10a is already normalized during dataset generation by dividing each complex vector by the sum of its sample magnitudes. As an additional preprocessing step, each loaded example is rescaled by the RMS computed jointly over its 256 I/Q scalar values. Thus, the combined I/Q array has unit mean-square while preserving the relative I/Q structure and phase. This removes overall received-signal scale, such as that introduced by gain, while preserving the within-sample characteristics that distinguish modulation types.
 - **Build the input**, one per experiment, from x[n] = I[n] + jQ[n]:
   - **A: raw I/Q** (2 × 128)
   - **B: amplitude + instantaneous frequency** (3 × 127): [A, cos Δφ, sin Δφ], with A[n] = |x[n]| and Δφ[n] = angle(x[n+1]·x*[n]). Encoding Δφ as cos and sin removes the jump between +π and −π.
@@ -83,3 +83,8 @@ Precision, recall and F1 (macro and per class) are in [metrics.md](results/metri
 
 
 ## 8. Recommendations, including tradeoffs between models
+- **Raw I/Q.** On the required raw I/Q input, the CNN reaches 65.7% mean five-fold accuracy versus 17.9% for the linear SVM: even a one-layer nonlinear feature extractor learns modulation structure that is not linearly separable in raw I/Q.
+- **Engineered features.** With power-law FFT features the SVM jumps from 17.9% to 81.4% and beats the CNN (78.4%) on every fold. This is the core tradeoff: learned nonlinear feature extraction versus domain-informed feature engineering.
+- **Training vs size.** The SVM is simpler and faster to train: its objective is convex and C is the only hyperparameter tuned here. The CNN requires a learning rate, batch size, epoch count, and random initialization, but it is far smaller (219–331 parameters vs. 2,827–5,643).
+- **Next step.** Beyond the specified architecture, evaluate a 2- or 3-layer CNN. On raw I/Q, training and held-out loss plateau together around 0.9–1.0, so the current network underfits rather than overfits, and more capacity is likely to help.
+- **Takeaway.** When raw I/Q must be used directly, I recommend the CNN. When simple, fast training is a priority and RF-specific preprocessing is acceptable, the linear SVM on power-law FFT features is the better choice.
